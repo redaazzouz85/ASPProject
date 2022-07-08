@@ -30,6 +30,9 @@ namespace ASPProject
 		
     #region Définitions de méthodes d'extensibilité
     partial void OnCreated();
+    partial void InsertARTISTE(ARTISTE instance);
+    partial void UpdateARTISTE(ARTISTE instance);
+    partial void DeleteARTISTE(ARTISTE instance);
     partial void InsertDERIVE_PRODUCT(DERIVE_PRODUCT instance);
     partial void UpdateDERIVE_PRODUCT(DERIVE_PRODUCT instance);
     partial void DeleteDERIVE_PRODUCT(DERIVE_PRODUCT instance);
@@ -71,6 +74,14 @@ namespace ASPProject
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<ARTISTE> ARTISTE
+		{
+			get
+			{
+				return this.GetTable<ARTISTE>();
+			}
+		}
+		
 		public System.Data.Linq.Table<DERIVE_PRODUCT> DERIVE_PRODUCT
 		{
 			get
@@ -96,29 +107,25 @@ namespace ASPProject
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DERIVE_PRODUCT")]
-	public partial class DERIVE_PRODUCT : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ARTISTE")]
+	public partial class ARTISTE : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Id;
 		
-		private System.Nullable<int> _Id_Product_Type;
+		private string _Nom;
 		
-		private System.Nullable<int> _Id_Original_Product;
+		private string _Prenom;
 		
-		private string _Name;
+		private string _Histoire1;
 		
-		private System.Nullable<double> _Price;
+		private string _Histoire2;
 		
-		private System.Nullable<int> _Quantity;
+		private System.Data.Linq.Binary _Image1;
 		
-		private System.Data.Linq.Binary _Image;
-		
-		private EntityRef<PRODUCT_TYPE> _PRODUCT_TYPE;
-		
-		private EntityRef<ORIGINAL_PRODUCT> _ORIGINAL_PRODUCT;
+		private System.Data.Linq.Binary _Image2;
 		
     #region Définitions de méthodes d'extensibilité
     partial void OnLoaded();
@@ -126,24 +133,22 @@ namespace ASPProject
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnId_Product_TypeChanging(System.Nullable<int> value);
-    partial void OnId_Product_TypeChanged();
-    partial void OnId_Original_ProductChanging(System.Nullable<int> value);
-    partial void OnId_Original_ProductChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnPriceChanging(System.Nullable<double> value);
-    partial void OnPriceChanged();
-    partial void OnQuantityChanging(System.Nullable<int> value);
-    partial void OnQuantityChanged();
-    partial void OnImageChanging(System.Data.Linq.Binary value);
-    partial void OnImageChanged();
+    partial void OnNomChanging(string value);
+    partial void OnNomChanged();
+    partial void OnPrenomChanging(string value);
+    partial void OnPrenomChanged();
+    partial void OnHistoire1Changing(string value);
+    partial void OnHistoire1Changed();
+    partial void OnHistoire2Changing(string value);
+    partial void OnHistoire2Changed();
+    partial void OnImage1Changing(System.Data.Linq.Binary value);
+    partial void OnImage1Changed();
+    partial void OnImage2Changing(System.Data.Linq.Binary value);
+    partial void OnImage2Changed();
     #endregion
 		
-		public DERIVE_PRODUCT()
+		public ARTISTE()
 		{
-			this._PRODUCT_TYPE = default(EntityRef<PRODUCT_TYPE>);
-			this._ORIGINAL_PRODUCT = default(EntityRef<ORIGINAL_PRODUCT>);
 			OnCreated();
 		}
 		
@@ -167,50 +172,262 @@ namespace ASPProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Product_Type", DbType="Int")]
-		public System.Nullable<int> Id_Product_Type
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nom", DbType="NChar(100)")]
+		public string Nom
 		{
 			get
 			{
-				return this._Id_Product_Type;
+				return this._Nom;
 			}
 			set
 			{
-				if ((this._Id_Product_Type != value))
+				if ((this._Nom != value))
 				{
-					if (this._PRODUCT_TYPE.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_Product_TypeChanging(value);
+					this.OnNomChanging(value);
 					this.SendPropertyChanging();
-					this._Id_Product_Type = value;
-					this.SendPropertyChanged("Id_Product_Type");
-					this.OnId_Product_TypeChanged();
+					this._Nom = value;
+					this.SendPropertyChanged("Nom");
+					this.OnNomChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Original_Product", DbType="Int")]
-		public System.Nullable<int> Id_Original_Product
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prenom", DbType="NChar(100)")]
+		public string Prenom
 		{
 			get
 			{
-				return this._Id_Original_Product;
+				return this._Prenom;
 			}
 			set
 			{
-				if ((this._Id_Original_Product != value))
+				if ((this._Prenom != value))
 				{
-					if (this._ORIGINAL_PRODUCT.HasLoadedOrAssignedValue)
+					this.OnPrenomChanging(value);
+					this.SendPropertyChanging();
+					this._Prenom = value;
+					this.SendPropertyChanged("Prenom");
+					this.OnPrenomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Histoire1", DbType="NVarChar(MAX)")]
+		public string Histoire1
+		{
+			get
+			{
+				return this._Histoire1;
+			}
+			set
+			{
+				if ((this._Histoire1 != value))
+				{
+					this.OnHistoire1Changing(value);
+					this.SendPropertyChanging();
+					this._Histoire1 = value;
+					this.SendPropertyChanged("Histoire1");
+					this.OnHistoire1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Histoire2", DbType="NVarChar(MAX)")]
+		public string Histoire2
+		{
+			get
+			{
+				return this._Histoire2;
+			}
+			set
+			{
+				if ((this._Histoire2 != value))
+				{
+					this.OnHistoire2Changing(value);
+					this.SendPropertyChanging();
+					this._Histoire2 = value;
+					this.SendPropertyChanged("Histoire2");
+					this.OnHistoire2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image1", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Image1
+		{
+			get
+			{
+				return this._Image1;
+			}
+			set
+			{
+				if ((this._Image1 != value))
+				{
+					this.OnImage1Changing(value);
+					this.SendPropertyChanging();
+					this._Image1 = value;
+					this.SendPropertyChanged("Image1");
+					this.OnImage1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image2", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Image2
+		{
+			get
+			{
+				return this._Image2;
+			}
+			set
+			{
+				if ((this._Image2 != value))
+				{
+					this.OnImage2Changing(value);
+					this.SendPropertyChanging();
+					this._Image2 = value;
+					this.SendPropertyChanged("Image2");
+					this.OnImage2Changed();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DERIVE_PRODUCT")]
+	public partial class DERIVE_PRODUCT : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Product_Type;
+		
+		private string _Original_Product;
+		
+		private string _Name;
+		
+		private System.Nullable<double> _Price;
+		
+		private System.Nullable<int> _Quantity;
+		
+		private System.Data.Linq.Binary _Image;
+		
+		private EntityRef<PRODUCT_TYPE> _PRODUCT_TYPE1;
+		
+		private EntityRef<ORIGINAL_PRODUCT> _ORIGINAL_PRODUCT1;
+		
+    #region Définitions de méthodes d'extensibilité
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnProduct_TypeChanging(string value);
+    partial void OnProduct_TypeChanged();
+    partial void OnOriginal_ProductChanging(string value);
+    partial void OnOriginal_ProductChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnPriceChanging(System.Nullable<double> value);
+    partial void OnPriceChanged();
+    partial void OnQuantityChanging(System.Nullable<int> value);
+    partial void OnQuantityChanged();
+    partial void OnImageChanging(System.Data.Linq.Binary value);
+    partial void OnImageChanged();
+    #endregion
+		
+		public DERIVE_PRODUCT()
+		{
+			this._PRODUCT_TYPE1 = default(EntityRef<PRODUCT_TYPE>);
+			this._ORIGINAL_PRODUCT1 = default(EntityRef<ORIGINAL_PRODUCT>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Product_Type", DbType="NChar(100)")]
+		public string Product_Type
+		{
+			get
+			{
+				return this._Product_Type;
+			}
+			set
+			{
+				if ((this._Product_Type != value))
+				{
+					if (this._PRODUCT_TYPE1.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnId_Original_ProductChanging(value);
+					this.OnProduct_TypeChanging(value);
 					this.SendPropertyChanging();
-					this._Id_Original_Product = value;
-					this.SendPropertyChanged("Id_Original_Product");
-					this.OnId_Original_ProductChanged();
+					this._Product_Type = value;
+					this.SendPropertyChanged("Product_Type");
+					this.OnProduct_TypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Original_Product", DbType="NChar(100)")]
+		public string Original_Product
+		{
+			get
+			{
+				return this._Original_Product;
+			}
+			set
+			{
+				if ((this._Original_Product != value))
+				{
+					if (this._ORIGINAL_PRODUCT1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOriginal_ProductChanging(value);
+					this.SendPropertyChanging();
+					this._Original_Product = value;
+					this.SendPropertyChanged("Original_Product");
+					this.OnOriginal_ProductChanged();
 				}
 			}
 		}
@@ -295,70 +512,70 @@ namespace ASPProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_TYPE_DERIVE_PRODUCT", Storage="_PRODUCT_TYPE", ThisKey="Id_Product_Type", OtherKey="Id", IsForeignKey=true)]
-		public PRODUCT_TYPE PRODUCT_TYPE
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_TYPE_DERIVE_PRODUCT", Storage="_PRODUCT_TYPE1", ThisKey="Product_Type", OtherKey="Title", IsForeignKey=true)]
+		public PRODUCT_TYPE PRODUCT_TYPE1
 		{
 			get
 			{
-				return this._PRODUCT_TYPE.Entity;
+				return this._PRODUCT_TYPE1.Entity;
 			}
 			set
 			{
-				PRODUCT_TYPE previousValue = this._PRODUCT_TYPE.Entity;
+				PRODUCT_TYPE previousValue = this._PRODUCT_TYPE1.Entity;
 				if (((previousValue != value) 
-							|| (this._PRODUCT_TYPE.HasLoadedOrAssignedValue == false)))
+							|| (this._PRODUCT_TYPE1.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._PRODUCT_TYPE.Entity = null;
+						this._PRODUCT_TYPE1.Entity = null;
 						previousValue.DERIVE_PRODUCT.Remove(this);
 					}
-					this._PRODUCT_TYPE.Entity = value;
+					this._PRODUCT_TYPE1.Entity = value;
 					if ((value != null))
 					{
 						value.DERIVE_PRODUCT.Add(this);
-						this._Id_Product_Type = value.Id;
+						this._Product_Type = value.Title;
 					}
 					else
 					{
-						this._Id_Product_Type = default(Nullable<int>);
+						this._Product_Type = default(string);
 					}
-					this.SendPropertyChanged("PRODUCT_TYPE");
+					this.SendPropertyChanged("PRODUCT_TYPE1");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ORIGINAL_PRODUCT_DERIVE_PRODUCT", Storage="_ORIGINAL_PRODUCT", ThisKey="Id_Original_Product", OtherKey="Id", IsForeignKey=true)]
-		public ORIGINAL_PRODUCT ORIGINAL_PRODUCT
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ORIGINAL_PRODUCT_DERIVE_PRODUCT", Storage="_ORIGINAL_PRODUCT1", ThisKey="Original_Product", OtherKey="Title", IsForeignKey=true)]
+		public ORIGINAL_PRODUCT ORIGINAL_PRODUCT1
 		{
 			get
 			{
-				return this._ORIGINAL_PRODUCT.Entity;
+				return this._ORIGINAL_PRODUCT1.Entity;
 			}
 			set
 			{
-				ORIGINAL_PRODUCT previousValue = this._ORIGINAL_PRODUCT.Entity;
+				ORIGINAL_PRODUCT previousValue = this._ORIGINAL_PRODUCT1.Entity;
 				if (((previousValue != value) 
-							|| (this._ORIGINAL_PRODUCT.HasLoadedOrAssignedValue == false)))
+							|| (this._ORIGINAL_PRODUCT1.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._ORIGINAL_PRODUCT.Entity = null;
+						this._ORIGINAL_PRODUCT1.Entity = null;
 						previousValue.DERIVE_PRODUCT.Remove(this);
 					}
-					this._ORIGINAL_PRODUCT.Entity = value;
+					this._ORIGINAL_PRODUCT1.Entity = value;
 					if ((value != null))
 					{
 						value.DERIVE_PRODUCT.Add(this);
-						this._Id_Original_Product = value.Id;
+						this._Original_Product = value.Title;
 					}
 					else
 					{
-						this._Id_Original_Product = default(Nullable<int>);
+						this._Original_Product = default(string);
 					}
-					this.SendPropertyChanged("ORIGINAL_PRODUCT");
+					this.SendPropertyChanged("ORIGINAL_PRODUCT1");
 				}
 			}
 		}
@@ -392,7 +609,7 @@ namespace ASPProject
 		
 		private int _Id;
 		
-		private string _Name;
+		private string _Title;
 		
 		private EntitySet<DERIVE_PRODUCT> _DERIVE_PRODUCT;
 		
@@ -402,8 +619,8 @@ namespace ASPProject
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
     #endregion
 		
 		public PRODUCT_TYPE()
@@ -412,7 +629,7 @@ namespace ASPProject
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
 		public int Id
 		{
 			get
@@ -432,27 +649,27 @@ namespace ASPProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NChar(100)")]
-		public string Name
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NChar(100) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Title
 		{
 			get
 			{
-				return this._Name;
+				return this._Title;
 			}
 			set
 			{
-				if ((this._Name != value))
+				if ((this._Title != value))
 				{
-					this.OnNameChanging(value);
+					this.OnTitleChanging(value);
 					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_TYPE_DERIVE_PRODUCT", Storage="_DERIVE_PRODUCT", ThisKey="Id", OtherKey="Id_Product_Type")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_TYPE_DERIVE_PRODUCT", Storage="_DERIVE_PRODUCT", ThisKey="Title", OtherKey="Product_Type")]
 		public EntitySet<DERIVE_PRODUCT> DERIVE_PRODUCT
 		{
 			get
@@ -488,13 +705,13 @@ namespace ASPProject
 		private void attach_DERIVE_PRODUCT(DERIVE_PRODUCT entity)
 		{
 			this.SendPropertyChanging();
-			entity.PRODUCT_TYPE = this;
+			entity.PRODUCT_TYPE1 = this;
 		}
 		
 		private void detach_DERIVE_PRODUCT(DERIVE_PRODUCT entity)
 		{
 			this.SendPropertyChanging();
-			entity.PRODUCT_TYPE = null;
+			entity.PRODUCT_TYPE1 = null;
 		}
 	}
 	
@@ -506,15 +723,15 @@ namespace ASPProject
 		
 		private int _Id;
 		
-		private string _Name;
+		private string _Title;
 		
 		private System.Nullable<double> _Price;
 		
 		private string _Description;
 		
-		private System.Data.Linq.Binary _image;
-		
 		private System.Nullable<int> _statut;
+		
+		private string _image;
 		
 		private EntitySet<DERIVE_PRODUCT> _DERIVE_PRODUCT;
 		
@@ -524,16 +741,16 @@ namespace ASPProject
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
     partial void OnPriceChanging(System.Nullable<double> value);
     partial void OnPriceChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
-    partial void OnimageChanging(System.Data.Linq.Binary value);
-    partial void OnimageChanged();
     partial void OnstatutChanging(System.Nullable<int> value);
     partial void OnstatutChanged();
+    partial void OnimageChanging(string value);
+    partial void OnimageChanged();
     #endregion
 		
 		public ORIGINAL_PRODUCT()
@@ -542,7 +759,7 @@ namespace ASPProject
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
 		public int Id
 		{
 			get
@@ -562,22 +779,22 @@ namespace ASPProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NChar(100)")]
-		public string Name
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NChar(100) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Title
 		{
 			get
 			{
-				return this._Name;
+				return this._Title;
 			}
 			set
 			{
-				if ((this._Name != value))
+				if ((this._Title != value))
 				{
-					this.OnNameChanging(value);
+					this.OnTitleChanging(value);
 					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
 				}
 			}
 		}
@@ -622,26 +839,6 @@ namespace ASPProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_image", DbType="Image", UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary image
-		{
-			get
-			{
-				return this._image;
-			}
-			set
-			{
-				if ((this._image != value))
-				{
-					this.OnimageChanging(value);
-					this.SendPropertyChanging();
-					this._image = value;
-					this.SendPropertyChanged("image");
-					this.OnimageChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_statut", DbType="Int")]
 		public System.Nullable<int> statut
 		{
@@ -662,7 +859,27 @@ namespace ASPProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ORIGINAL_PRODUCT_DERIVE_PRODUCT", Storage="_DERIVE_PRODUCT", ThisKey="Id", OtherKey="Id_Original_Product")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_image", DbType="NChar(100)")]
+		public string image
+		{
+			get
+			{
+				return this._image;
+			}
+			set
+			{
+				if ((this._image != value))
+				{
+					this.OnimageChanging(value);
+					this.SendPropertyChanging();
+					this._image = value;
+					this.SendPropertyChanged("image");
+					this.OnimageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ORIGINAL_PRODUCT_DERIVE_PRODUCT", Storage="_DERIVE_PRODUCT", ThisKey="Title", OtherKey="Original_Product")]
 		public EntitySet<DERIVE_PRODUCT> DERIVE_PRODUCT
 		{
 			get
@@ -698,13 +915,13 @@ namespace ASPProject
 		private void attach_DERIVE_PRODUCT(DERIVE_PRODUCT entity)
 		{
 			this.SendPropertyChanging();
-			entity.ORIGINAL_PRODUCT = this;
+			entity.ORIGINAL_PRODUCT1 = this;
 		}
 		
 		private void detach_DERIVE_PRODUCT(DERIVE_PRODUCT entity)
 		{
 			this.SendPropertyChanging();
-			entity.ORIGINAL_PRODUCT = null;
+			entity.ORIGINAL_PRODUCT1 = null;
 		}
 	}
 }

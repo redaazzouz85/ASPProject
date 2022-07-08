@@ -131,6 +131,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DeriveInfo.cs" />
+    <Compile Include="Models\OriginalProductInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,11 +183,15 @@
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Inventory\Details.cshtml" />
     <Content Include="Views\Inventory\Create.cshtml" />
+    <Content Include="Views\Inventory\CreateDeriveProduct.cshtml" />
     <Content Include="Views\Inventory\Edit.cshtml" />
     <Content Include="Views\Inventory\Delete.cshtml" />
+    <Content Include="Views\Inventory\DeriveIndex.cshtml" />
+    <Content Include="Views\Inventory\CreateDeriveProduct_OriginalSelection.cshtml" />
+    <Content Include="Views\Inventory\CreateDeriveProduct_TypeSelection.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

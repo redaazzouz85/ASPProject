@@ -1,34 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MyArtDataBase" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MyArtDataBase.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="MyArtDataBaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ARTISTE" Member="ARTISTE">
+    <Type Name="ARTISTE">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nom" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
+      <Column Name="Prenom" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
+      <Column Name="Histoire1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Histoire2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Image1" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Image2" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
   <Table Name="dbo.DERIVE_PRODUCT" Member="DERIVE_PRODUCT">
     <Type Name="DERIVE_PRODUCT">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Id_Product_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Id_Original_Product" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Product_Type" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
+      <Column Name="Original_Product" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
       <Column Name="Name" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
       <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Image" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="PRODUCT_TYPE_DERIVE_PRODUCT" Member="PRODUCT_TYPE" ThisKey="Id_Product_Type" OtherKey="Id" Type="PRODUCT_TYPE" IsForeignKey="true" />
-      <Association Name="ORIGINAL_PRODUCT_DERIVE_PRODUCT" Member="ORIGINAL_PRODUCT" ThisKey="Id_Original_Product" OtherKey="Id" Type="ORIGINAL_PRODUCT" IsForeignKey="true" />
+      <Association Name="PRODUCT_TYPE_DERIVE_PRODUCT" Member="PRODUCT_TYPE1" ThisKey="Product_Type" OtherKey="Title" Type="PRODUCT_TYPE" IsForeignKey="true" />
+      <Association Name="ORIGINAL_PRODUCT_DERIVE_PRODUCT" Member="ORIGINAL_PRODUCT1" ThisKey="Original_Product" OtherKey="Title" Type="ORIGINAL_PRODUCT" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PRODUCT_TYPE" Member="PRODUCT_TYPE">
     <Type Name="PRODUCT_TYPE">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
-      <Association Name="PRODUCT_TYPE_DERIVE_PRODUCT" Member="DERIVE_PRODUCT" ThisKey="Id" OtherKey="Id_Product_Type" Type="DERIVE_PRODUCT" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="PRODUCT_TYPE_DERIVE_PRODUCT" Member="DERIVE_PRODUCT" ThisKey="Title" OtherKey="Product_Type" Type="DERIVE_PRODUCT" />
     </Type>
   </Table>
   <Table Name="dbo.ORIGINAL_PRODUCT" Member="ORIGINAL_PRODUCT">
     <Type Name="ORIGINAL_PRODUCT">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="Description" Type="System.String" DbType="NChar(3000)" CanBeNull="true" />
-      <Column Name="image" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="statut" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="ORIGINAL_PRODUCT_DERIVE_PRODUCT" Member="DERIVE_PRODUCT" ThisKey="Id" OtherKey="Id_Original_Product" Type="DERIVE_PRODUCT" />
+      <Column Name="image" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
+      <Association Name="ORIGINAL_PRODUCT_DERIVE_PRODUCT" Member="DERIVE_PRODUCT" ThisKey="Title" OtherKey="Original_Product" Type="DERIVE_PRODUCT" />
     </Type>
   </Table>
 </Database>
