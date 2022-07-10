@@ -1,0 +1,67 @@
+﻿@model ASPProject.DERIVE_PRODUCT
+
+@{
+    ViewBag.Title = "Details_Derive";
+}
+
+<h2>Details_Derive</h2>
+
+<div>
+    <h4>DERIVE_PRODUCT</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Original_Product)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Original_Product)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        
+        <dd>
+            <img src="@Url.Content(Model.Image)" width="300" height="300" asp-append-version="true" />
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "IndexDerive")
+</p>

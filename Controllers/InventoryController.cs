@@ -20,7 +20,21 @@ namespace ASPProject.Controllers
         public ActionResult Index()
         {
             var Original_Product = from x in dc.ORIGINAL_PRODUCT select x;
-            return View(Original_Product);
+            //OriginalProductModel orm = new OriginalProductModel();
+            IList<OriginalProductModel> ormList = new List<OriginalProductModel>();
+
+            foreach(var item in Original_Product)
+            {
+                OriginalProductModel orm = new OriginalProductModel();
+                orm.Id=item.Id;
+                orm.Title = item.Title;
+                orm.Price = item.Price;
+                orm.ImagePath = item.Image;
+                orm.getStatut(item.statut);
+                orm.Description = item.Description;
+                ormList.Add(orm);
+            }
+            return View(ormList);
         }
         public ActionResult DeriveIndex()
         {
@@ -36,11 +50,53 @@ namespace ASPProject.Controllers
         }
 
         // GET: Inventory/Create
+        public ActionResult CreateOriginalProduct()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateOriginalProduct(OriginalProductModel oRIGINAL_PRODUCT)
+        {
+            try
+            {
+                string fileName = Path.GetFileNameWithoutExtension(oRIGINAL_PRODUCT.ImageFile.FileName);
+                string extension = Path.GetExtension(oRIGINAL_PRODUCT.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                oRIGINAL_PRODUCT.ImagePath = "~/Images/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                oRIGINAL_PRODUCT.ImageFile.SaveAs(fileName);
+
+                ORIGINAL_PRODUCT newOriginalProduct = new ORIGINAL_PRODUCT()
+                {
+                    Title = oRIGINAL_PRODUCT.Title,
+                    Price = oRIGINAL_PRODUCT.Price,
+                    Description = oRIGINAL_PRODUCT.Description,
+                    Image = oRIGINAL_PRODUCT.ImagePath,
+                    statut = 1
+                    
+                };
+
+                dc.ORIGINAL_PRODUCT.InsertOnSubmit(newOriginalProduct);
+                dc.SubmitChanges();
+
+                /* using(MyArtDataBaseEntities db = new MyArtDataBaseEntities())
+                 {
+                     db.ORIGINAL_PRODUCT.Add(oRIGINAL_PRODUCT);
+                     db.SaveChanges();
+                 }*/
+                //ModelState.Clear();
+                return RedirectToAction("Index");
+                
+            }catch
+            {
+                return View("Index");
+            }
+        }
         public ActionResult Create()
         {
             return View();
         }
-
+        
         // POST: Inventory/Create
         [HttpPost]
         public ActionResult Create(ORIGINAL_PRODUCT collection, HttpPostedFileBase OriginalImage)
@@ -73,7 +129,7 @@ namespace ASPProject.Controllers
                 return View();
             }
         }
-
+        
         // GET: Inventory/Create
         public ActionResult CreateDeriveProduct_OriginalSelection()
         {
@@ -140,40 +196,85 @@ namespace ASPProject.Controllers
 
         // POST: Inventory/Create
         [HttpPost]
-        public ActionResult CreateDeriveProduct(DERIVE_PRODUCT collection)
+        public ActionResult CreateDeriveProduct(DeriveProductModel dERIVE_PRODUCT)
         {
+
             try
             {
-                DERIVE_PRODUCT NewDeriveProduct = new DERIVE_PRODUCT();
+                string fileName = Path.GetFileNameWithoutExtension(dERIVE_PRODUCT.ImageFile.FileName);
+                string extension = Path.GetExtension(dERIVE_PRODUCT.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                dERIVE_PRODUCT.Image = "~/Images/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                dERIVE_PRODUCT.ImageFile.SaveAs(fileName);
 
-                NewDeriveProduct.Original_Product = _SelectedOriginalProduct;
-                NewDeriveProduct.Product_Type = _SelectedProductType;
-                NewDeriveProduct.Name = collection.Name;
-                NewDeriveProduct.Price = collection.Price;
-                NewDeriveProduct.Quantity = collection.Quantity;
+                DERIVE_PRODUCT newDeriveProduct = new DERIVE_PRODUCT()
+                {
+                    Original_Product = _SelectedOriginalProduct,
+                    Product_Type = _SelectedProductType,
+                    Name = dERIVE_PRODUCT.Name,
+                    Price = dERIVE_PRODUCT.Price,
+                    Quantity = dERIVE_PRODUCT.Quantity,
+                    Image = dERIVE_PRODUCT.Image
 
-                // TODO: Add insert logic here
-                dc.DERIVE_PRODUCT.InsertOnSubmit(NewDeriveProduct);
+                };
+
+                dc.DERIVE_PRODUCT.InsertOnSubmit(newDeriveProduct);
                 dc.SubmitChanges();
+
+                /* using(MyArtDataBaseEntities db = new MyArtDataBaseEntities())
+                 {
+                     db.ORIGINAL_PRODUCT.Add(oRIGINAL_PRODUCT);
+                     db.SaveChanges();
+                 }*/
+                //ModelState.Clear();
                 return RedirectToAction("DeriveIndex");
+
             }
             catch
             {
-                return View();
+                return View("DeriveIndex");
             }
+            /*  try
+              {
+                  DERIVE_PRODUCT NewDeriveProduct = new DERIVE_PRODUCT();
+
+                  NewDeriveProduct.Original_Product = _SelectedOriginalProduct;
+                  NewDeriveProduct.Product_Type = _SelectedProductType;
+                  NewDeriveProduct.Name = collection.Name;
+                  NewDeriveProduct.Price = collection.Price;
+                  NewDeriveProduct.Quantity = collection.Quantity;
+
+                  // TODO: Add insert logic here
+                  dc.DERIVE_PRODUCT.InsertOnSubmit(NewDeriveProduct);
+                  dc.SubmitChanges();
+                  return RedirectToAction("DeriveIndex");
+              }
+              catch
+              {
+                  return View();
+              }*/
         }
 
         // GET: Inventory/Edit/5
         public ActionResult Edit(int id)
         {
             var CurrentOriginalProduct = dc.ORIGINAL_PRODUCT.Single(x => x.Id == id);
+            OriginalProductModel editingOriginalProduct = new OriginalProductModel()
+            {
+                Id = CurrentOriginalProduct.Id,
+                Title = CurrentOriginalProduct.Title,
+                Price = CurrentOriginalProduct.Price,
+                Description = CurrentOriginalProduct.Description,
+                statut = CurrentOriginalProduct.statut
+            };
 
-            return View(CurrentOriginalProduct);
+            return View(editingOriginalProduct);
         }
 
         // POST: Inventory/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, ORIGINAL_PRODUCT collection)
+        public ActionResult Edit(int id, OriginalProductModel collection)
         {
             try
             {
@@ -182,9 +283,10 @@ namespace ASPProject.Controllers
                 UpdateProduct.Title = collection.Title;
                 UpdateProduct.Price = collection.Price;
                 UpdateProduct.Description = collection.Description;
-                UpdateProduct.image = collection.image;
+               // UpdateProduct.image = collection.image;
                 UpdateProduct.statut = collection.statut;
-                dc.SubmitChanges();
+
+                dc.SubmitChanges ();
                 return RedirectToAction("Index");
             }
             catch
@@ -209,9 +311,22 @@ namespace ASPProject.Controllers
             {
                 // TODO: Add delete logic here
                 var CurrentOriginalProduct = dc.ORIGINAL_PRODUCT.Single(x => x.Id == id);
-                dc.ORIGINAL_PRODUCT.DeleteOnSubmit(CurrentOriginalProduct);
-                dc.SubmitChanges();
-                return RedirectToAction("Index");
+                
+                var checkDerivedProduct = dc.DERIVE_PRODUCT.SingleOrDefault(x => x.Original_Product.Trim() == CurrentOriginalProduct.Title.Trim());
+
+                if(checkDerivedProduct.Original_Product == null) {
+                    dc.ORIGINAL_PRODUCT.DeleteOnSubmit(CurrentOriginalProduct);
+                    dc.SubmitChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    System.Console.WriteLine("This product have Derived product, it can't be deleted!");
+                    return View();
+
+                }
+                
+
             }
             catch
             {
@@ -271,7 +386,7 @@ namespace ASPProject.Controllers
 
         // POST: Inventory/Delete/5
         [HttpPost]
-        public ActionResult Delete_Derive(int id, DeriveInfo collection)
+        public ActionResult Delete_Derive(int id,DERIVE_PRODUCT collection)
         {
             try
             {

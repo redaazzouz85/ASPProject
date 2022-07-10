@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ASPProject.DERIVE_PRODUCT>
+
+@{
+    ViewBag.Title = "DeriveIndex";
+}
+
+<h2>DeriveIndex</h2>
+
+<div class="container container-fluid">
+    @foreach (var item in Model)
+    {
+
+
+        <div class="col-sm-4 d-flex pb-3">
+            <div class="card card-block" style="width: 30rem; text-align:center;">
+                <img class="card-img-top" src="@Url.Content(item.Image)" width="220rem" height="300" asp-append-version="true" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text"></p>
+                </div>
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item "></li>
+                    <li class="list-group-item"> @item.Price<span>$</span></li>
+
+                </ul>
+                <div class="card-body">
+                    @*  <input type="button" class="btn-primary" name="DeriveProduct" value="Derived Product"> *@
+                    
+                    <a href="#" class="card-link">Add to cart</a>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

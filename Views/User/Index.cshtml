@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ASPProject.Models.OriginalProductModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index User</h2>
+
+<div class="container container-fluid">
+    @foreach (var item in Model)
+    {
+        
+
+            <div class="col-sm-4 d-flex pb-3">
+                <div class="card card-block" style="width: 30rem; text-align:center;">
+                    <img class="card-img-top" src="@Url.Content(item.ImagePath)" width="220rem" height="300" asp-append-version="true" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">@item.Description</p>
+                    </div>
+                    <ul class="list-group list-group-flush ">
+                        <li class="list-group-item ">@item.statusS</li>
+                        <li class="list-group-item">@item.Price <span>$</span></li>
+
+                    </ul>
+                    <div class="card-body">
+                        
+                        <button type="button" class="btn btn-block" onclick="location.href='@Url.Action("DeriveIndex", "User", new { originalProduct = @item.Title })'" >Derived Product</button>
+
+
+                        <a href="#" class="card-link">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        
+    }
+</div>
+
+
+
+
+
+
+
+

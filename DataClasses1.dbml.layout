@@ -8,36 +8,36 @@
         <elementListCompartment Id="dd4cf400-26e5-46df-a83b-12ebf6b3dc7f" absoluteBounds="0.76499999999999968, 3.085, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f38b0ae6-8fc3-4d7c-94b5-0e2d448b11c6" absoluteBounds="6.5, 2.875, 2, 2.1554996744791666">
-      <DataClassMoniker Name="/DataClasses1DataContext/DERIVE_PRODUCT" />
-      <nestedChildShapes>
-        <elementListCompartment Id="ced8376c-7411-4a90-9c05-db92de358c22" absoluteBounds="6.515, 3.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="8ad82e73-4d08-4693-ac99-e997db7e50be" absoluteBounds="8.875, 0.625, 2, 1.1939925130208333">
       <DataClassMoniker Name="/DataClasses1DataContext/PRODUCT_TYPE" />
       <nestedChildShapes>
         <elementListCompartment Id="b6182ece-d5d9-45e8-b11c-be3537cd4294" absoluteBounds="8.89, 1.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(9.875 : 1.81899251302083); (9.875 : 3.95274983723958); (8.5 : 3.95274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <classShape Id="7c5bd2bc-80f0-4c41-a768-90db559730d9" absoluteBounds="6.375, 4, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/DataClasses1DataContext/DERIVE_PRODUCT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8a13c260-67b3-489a-a0a2-1dda33bf1116" absoluteBounds="6.39, 4.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.875 : 1.81899251302083); (9.875 : 5.07774983723958); (8.375 : 5.07774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClasses1DataContext/PRODUCT_TYPE/PRODUCT_TYPE_DERIVE_PRODUCT" />
       <nodes>
         <classShapeMoniker Id="8ad82e73-4d08-4693-ac99-e997db7e50be" />
-        <classShapeMoniker Id="f38b0ae6-8fc3-4d7c-94b5-0e2d448b11c6" />
+        <classShapeMoniker Id="7c5bd2bc-80f0-4c41-a768-90db559730d9" />
       </nodes>
     </associationConnector>
-    <classShape Id="82d9140b-893a-4254-b400-7f6a312d4ab8" absoluteBounds="3.875, 0.875, 2, 1.9631982421875">
+    <classShape Id="58c0b4a7-4b23-4b86-b052-18566e452a16" absoluteBounds="4.5, 1.375, 2, 1.9631982421875">
       <DataClassMoniker Name="/DataClasses1DataContext/ORIGINAL_PRODUCT" />
       <nestedChildShapes>
-        <elementListCompartment Id="34d12a60-dc8c-4241-b0ff-080544ea885f" absoluteBounds="3.8899999999999997, 1.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="18777a19-f661-4e8e-819e-aa47269a709e" absoluteBounds="4.515, 1.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.875 : 1.85659912109375); (7.5 : 1.85659912109375); (7.5 : 2.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.4374995 : 3.3381982421875); (5.4374995 : 5.07774983723958); (6.375 : 5.07774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataClasses1DataContext/ORIGINAL_PRODUCT/ORIGINAL_PRODUCT_DERIVE_PRODUCT" />
       <nodes>
-        <classShapeMoniker Id="82d9140b-893a-4254-b400-7f6a312d4ab8" />
-        <classShapeMoniker Id="f38b0ae6-8fc3-4d7c-94b5-0e2d448b11c6" />
+        <classShapeMoniker Id="58c0b4a7-4b23-4b86-b052-18566e452a16" />
+        <classShapeMoniker Id="7c5bd2bc-80f0-4c41-a768-90db559730d9" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
