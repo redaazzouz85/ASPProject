@@ -22,7 +22,7 @@ namespace ASPProject.Models
         public Nullable<int> statut { get; set; }
         [DisplayName("Upload file")]
         public string ImagePath { get; set; }
-
+        [DisplayName("Status")]
         public string statusS { get; set; }
 
         public string getStatut(int? statusInt)

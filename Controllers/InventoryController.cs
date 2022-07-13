@@ -266,7 +266,8 @@ namespace ASPProject.Controllers
                 Title = CurrentOriginalProduct.Title,
                 Price = CurrentOriginalProduct.Price,
                 Description = CurrentOriginalProduct.Description,
-                statut = CurrentOriginalProduct.statut
+                statut = CurrentOriginalProduct.statut,
+                ImagePath = CurrentOriginalProduct.Image
             };
 
             return View(editingOriginalProduct);
@@ -274,24 +275,35 @@ namespace ASPProject.Controllers
 
         // POST: Inventory/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, OriginalProductModel collection)
+        public ActionResult Edit(int id, OriginalProductModel collection, string SelectedStatus)
         {
             try
             {
-                // TODO: Add update logic here
                 ORIGINAL_PRODUCT UpdateProduct = dc.ORIGINAL_PRODUCT.Single(x => x.Id == id);
-                UpdateProduct.Title = collection.Title;
+
+              //  UpdateProduct.Title = collection.Title;
                 UpdateProduct.Price = collection.Price;
                 UpdateProduct.Description = collection.Description;
-               // UpdateProduct.image = collection.image;
-                UpdateProduct.statut = collection.statut;
+                UpdateProduct.statut = Convert.ToInt32(SelectedStatus);
+
+                if (collection.ImageFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(collection.ImageFile.FileName);
+                    string extension = Path.GetExtension(collection.ImageFile.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    collection.ImagePath = "~/Images/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    collection.ImageFile.SaveAs(fileName);
+                    UpdateProduct.Image = collection.ImagePath;
+                }
+                // TODO: Add update logic here
 
                 dc.SubmitChanges ();
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception err)
             {
-                return View();
+                return View(err.Message);
             }
         }
 
@@ -311,18 +323,22 @@ namespace ASPProject.Controllers
             {
                 // TODO: Add delete logic here
                 var CurrentOriginalProduct = dc.ORIGINAL_PRODUCT.Single(x => x.Id == id);
-                
-                var checkDerivedProduct = dc.DERIVE_PRODUCT.SingleOrDefault(x => x.Original_Product.Trim() == CurrentOriginalProduct.Title.Trim());
 
-                if(checkDerivedProduct.Original_Product == null) {
-                    dc.ORIGINAL_PRODUCT.DeleteOnSubmit(CurrentOriginalProduct);
-                    dc.SubmitChanges();
-                    return RedirectToAction("Index");
+                //  var checkDerivedProduct = dc.DERIVE_PRODUCT.Single(x => x.Original_Product.Trim() == CurrentOriginalProduct.Title.Trim());
+               
+                var checkDerivedProduct = from x in dc.DERIVE_PRODUCT where x.Original_Product.Trim() == CurrentOriginalProduct.Title.Trim() select x ;
+
+                if (checkDerivedProduct.Any()) {
+                    ViewBag.Message = "This product have Derived product, it can't be deleted!";
+                    //  System.Console.WriteLine("This product have Derived product, it can't be deleted!");
+                    return View();
                 }
                 else
                 {
-                    System.Console.WriteLine("This product have Derived product, it can't be deleted!");
-                    return View();
+                    dc.ORIGINAL_PRODUCT.DeleteOnSubmit(CurrentOriginalProduct);
+                    dc.SubmitChanges();
+                    return RedirectToAction("Index");
+                    
 
                 }
                 
@@ -351,24 +367,48 @@ namespace ASPProject.Controllers
         {
             var CurrentDeriveProduct = dc.DERIVE_PRODUCT.Single(x => x.Id == id);
 
-            return View(CurrentDeriveProduct);
+
+            
+            DeriveProductModel editingDeriveProduct = new DeriveProductModel()
+            {
+                Id = CurrentDeriveProduct.Id,
+                Name = CurrentDeriveProduct.Name,
+                Price = CurrentDeriveProduct.Price,
+                
+                Quantity = CurrentDeriveProduct.Quantity,
+                Image = CurrentDeriveProduct.Image
+            };
+            return View(editingDeriveProduct);
         }
 
         // POST: Inventory/Edit/5
         [HttpPost]
-        public ActionResult Edit_Derive(int id, DERIVE_PRODUCT collection)
+        public ActionResult Edit_Derive(int id, DeriveProductModel collection)
         {
             try
             {
-                // TODO: Add update logic here
-                DERIVE_PRODUCT UpdateProduct = dc.DERIVE_PRODUCT.Single(x => x.Id == id);
+                  DERIVE_PRODUCT UpdateProduct = dc.DERIVE_PRODUCT.Single(x => x.Id == id);
                 UpdateProduct.Name = collection.Name;
                 UpdateProduct.Price = collection.Price;
                 UpdateProduct.Quantity = collection.Quantity;
-                UpdateProduct.Image = collection.Image;
+
+                if (collection.ImageFile != null ) {
+
+                    string fileName = Path.GetFileNameWithoutExtension(collection.ImageFile.FileName);
+                    string extension = Path.GetExtension(collection.ImageFile.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    collection.Image = "~/Images/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    collection.ImageFile.SaveAs(fileName);
+                    UpdateProduct.Image = collection.Image;
+                }
                 
+                // TODO: Add update logic here
+               
+                    
+                    
                 dc.SubmitChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("DeriveIndex");
             }
             catch
             {
@@ -394,11 +434,11 @@ namespace ASPProject.Controllers
                 var CurrentDeriveProduct = dc.DERIVE_PRODUCT.Single(x => x.Id == id);
                 dc.DERIVE_PRODUCT.DeleteOnSubmit(CurrentDeriveProduct);
                 dc.SubmitChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("DeriveIndex");
             }
-            catch
+            catch(Exception err)
             {
-                return View();
+                return View(err.Message);
             }
         }
     }

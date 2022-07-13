@@ -26,6 +26,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
         </th>
+
         <th>
             @Html.DisplayNameFor(model => model.Image)
         </th>
@@ -43,12 +44,14 @@
     <td>
         @Html.DisplayFor(modelItem => item.Name)
     </td>
+
     <td>
         @Html.DisplayFor(modelItem => item.Price)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Quantity)
     </td>
+
     <td>
         <img src="@Url.Content(item.Image)" class="rounded-circle" width="40" height="40" asp-append-version="true" />
     </td>

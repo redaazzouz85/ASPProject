@@ -9,32 +9,52 @@
 <div class="container container-fluid">
     @foreach (var item in Model)
     {
-        
-
-            <div class="col-sm-4 d-flex pb-3">
-                <div class="card card-block" style="width: 30rem; text-align:center;">
-                    <img class="card-img-top" src="@Url.Content(item.ImagePath)" width="220rem" height="300" asp-append-version="true" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Title</h5>
-                        <p class="card-text">@item.Description</p>
-                    </div>
-                    <ul class="list-group list-group-flush ">
-                        <li class="list-group-item ">@item.statusS</li>
-                        <li class="list-group-item">@item.Price <span>$</span></li>
-
-                    </ul>
-                    <div class="card-body">
-                        
-                        <button type="button" class="btn btn-block" onclick="location.href='@Url.Action("DeriveIndex", "User", new { originalProduct = @item.Title })'" >Derived Product</button>
 
 
-                        <a href="#" class="card-link">Add to cart</a>
-                    </div>
+        <div class="col-sm-4 d-flex pb-3">
+            <div class="card card-block" style="width: 30rem; text-align:center;">
+                <div id="container">
+                    <img class="card-img-top" id="img1" src="@Url.Content(item.ImagePath)" width="300" height="440"  asp-append-version="true" alt="Card image cap">
+                    @{
+                        if (item.statusS == "Sold")
+                        {
+                            <img class="card-img-top" id="img2" src="~/Images/sold.png" width="150" height="150" asp-append-version="true" alt="Card image cap">
+
+                        }
+                    }
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Description</p>
+                </div>
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item ">@item.statusS</li>
+                    <li class="list-group-item">@item.Price <span>$</span></li>
+
+                </ul>
+                <div class="card-body">
+
+                    <button type="button" class="btn btn-block" onclick="location.href='@Url.Action("DeriveIndex", "User", new { originalProduct = @item.Title })'">Derived Product</button>
+
+
+                    <a href="#" class="card-link">Add to cart</a>
                 </div>
             </div>
-        
+        </div>
+
     }
 </div>
+<style>
+    #container {
+        position: relative;
+    }
+
+    #img2 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+</style>
 
 
 
