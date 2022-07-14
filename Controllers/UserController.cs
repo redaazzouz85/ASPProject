@@ -45,12 +45,17 @@ namespace ASPProject.Controllers
             // Get Product types without duplication
             // 
             List<string> Types = new List<string>() ;
+            List<string> Origins = new List<string>() ;
             foreach (var x in Derive_Product)
             {
                 Types.Add(x.Product_Type);
+                Origins.Add(x.Original_Product);
             }
             IEnumerable<string> noDuplicate_typeList = Types.Distinct();
+            IEnumerable<string> noDuplicate_originList = Origins.Distinct();
+
             ViewBag.noDuplicate_typeList = noDuplicate_typeList;
+            ViewBag.noDuplicate_originList = noDuplicate_originList;
 
             foreach (var item in Derive_Product)
             {
@@ -91,8 +96,9 @@ namespace ASPProject.Controllers
                     Origins.Add(x.Original_Product);
                 }
                 IEnumerable<string> noDuplicate_typeList = Types.Distinct();
+                IEnumerable<string> noDuplicate_originList = Origins.Distinct();
                 ViewBag.noDuplicate_typeList = noDuplicate_typeList;
-                ViewBag.OriginList = Origins;
+                ViewBag.noDuplicate_originList = noDuplicate_originList;
 
                 if (ByOrigin_Derive_Product.Count() > 0)
                 {

@@ -42,4 +42,13 @@
       <Association Name="ORIGINAL_PRODUCT_DERIVE_PRODUCT" Member="DERIVE_PRODUCT" ThisKey="Title" OtherKey="Original_Product" Type="DERIVE_PRODUCT" />
     </Type>
   </Table>
+  <Table Name="dbo.CART_ITEM" Member="CART_ITEM">
+    <Type Name="CART_ITEM">
+      <Column Name="Id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CartId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

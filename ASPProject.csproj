@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -141,9 +142,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ArtisteModel.cs" />
+    <Compile Include="Models\CartOrder.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\DeriveProductModel.cs" />
     <Compile Include="Models\OriginalProductModel.cs" />
     <Compile Include="Models\ProductTypeModel.cs" />
+    <Compile Include="Models\ShoppingCartActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +211,9 @@
     <Content Include="Views\User\DeriveIndex.cshtml" />
     <Content Include="Views\Inventory\Delete_Derive.cshtml" />
     <Content Include="Views\User\DeriveProduct_Index.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_Cart.cshtml" />
+    <Content Include="Views\Cart\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

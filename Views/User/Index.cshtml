@@ -6,15 +6,15 @@
 
 <h2>Index User</h2>
 
-<div class="container container-fluid">
+<div class="container container-fluid" style="margin-top:10rem">
     @foreach (var item in Model)
     {
 
 
         <div class="col-sm-4 d-flex pb-3">
-            <div class="card card-block" style="width: 30rem; text-align:center;">
+            <div class="card card-block" style="width: 32rem; text-align:center ; padding-bottom:6rem">
                 <div id="container">
-                    <img class="card-img-top" id="img1" src="@Url.Content(item.ImagePath)" width="300" height="440"  asp-append-version="true" alt="Card image cap">
+                    <img class="card-img-top" id="img1" src="@Url.Content(item.ImagePath)" width="320" height="430"  asp-append-version="true" alt="Card image cap">
                     @{
                         if (item.statusS == "Sold")
                         {
