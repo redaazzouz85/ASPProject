@@ -4,14 +4,38 @@
     ViewBag.Title = "DeriveIndex";
 }
 
-<h2>DeriveIndex</h2>
 
+
+<div class="container" style="margin:20px; margin-left:150px">
+    <div class="row ">
+        <div class="col-lg-3 ">
+            @Html.ActionLink("ORIGINAL PRODUCT", "Index", null, new { @class = "btn btn-primary", @style = "width:200px" })
+
+        </div>
+        <div class="col-lg-3">
+            @Html.ActionLink("DERIVE PRODUCT", "DeriveIndex", null, new { @class = "btn btn-primary", @style = "width:200px" })
+
+        </div>
+        <div class="col-lg-3">
+            @Html.ActionLink("ORDERS", "Orders", null, new { @class = "btn btn-primary", @style = "width:200px" })
+
+        </div>
+
+    </div>
+</div>
+<br />
+<strong><hr /></strong>
+<h1 style="text-align:center ; color :dodgerblue" class="modal-title ">DERIVE INVENTORY</h1>
+<strong><hr /></strong>
+<br />
 <p>
-    @Html.ActionLink("Create New", "CreateDeriveProduct_OriginalSelection")
+    @Html.ActionLink("Create New", "CreateDeriveProduct_OriginalSelection", null, new { @class = "btn btn-primary", @style = "width:200px" })
 </p>
 <table class="table">
     <tr>
         <th>
+            #
+        </th><th>
             @Html.DisplayNameFor(model => model.Product_Type)
         </th>
         <th>
@@ -33,34 +57,37 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Product_Type)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Original_Product)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td><td>
+                @Html.DisplayFor(modelItem => item.Product_Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Original_Product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.Price)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Quantity)
-    </td>
+            <td>
+                <span>$</span> @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td style="text-align:center">
+                @Html.DisplayFor(modelItem => item.Quantity , new { @style="align:center"})
+            </td>
 
-    <td>
-        <img src="@Url.Content(item.Image)" class="rounded-circle" width="40" height="40" asp-append-version="true" />
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit_Derive", new { id = item.Id }) |
-        @Html.ActionLink("Details", "Details_Derive", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "Delete_Derive", new { id = item.Id })
-    </td>
-</tr>
-}
+            <td>
+                <img src="@Url.Content(item.Image)" class="rounded-circle" width="40" height="40" asp-append-version="true" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit_Derive", new { id = item.Id }, new { @class = "btn btn-info", @style = "font-size: 10px" }) |
+                @Html.ActionLink("Details", "Details_Derive", new { id = item.Id }, new { @class = "btn btn-info", @style = "font-size: 10px" }) |
+                @Html.ActionLink("Delete", "Delete_Derive", new { id = item.Id }, new { @class = "btn btn-info", @style = "font-size: 10px" })
+            </td>
+        </tr>
+    }
 
 </table>

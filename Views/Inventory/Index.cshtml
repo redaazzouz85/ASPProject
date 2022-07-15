@@ -4,16 +4,39 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-<h3>
-    @Html.ActionLink("Derive Product Inventory", "DeriveIndex")
-</h3>
+
+
+    <div class="container" style="margin:20px; margin-left:150px">
+        <div class="row ">
+            <div class="col-lg-3 ">
+                @Html.ActionLink("ORIGINAL PRODUCT", "Index", null, new { @class = "btn btn-primary" ,@style = "width:200px"})
+
+            </div>
+            <div class="col-lg-3">
+                @Html.ActionLink("DERIVE PRODUCT", "DeriveIndex", null, new { @class = "btn btn-primary", @style = "width:200px" })
+
+            </div>
+            <div class="col-lg-3">
+                @Html.ActionLink("ORDERS", "Orders", null, new { @class = "btn btn-primary", @style = "width:200px" })
+
+            </div>
+           
+        </div>
+    </div>
+   <br />
+<strong><hr /></strong>
+<h1 style="text-align:center ; color :dodgerblue" class="modal-title " >ORIGINAL INVENTORY</h1>
+<strong><hr /></strong>
+<br />
 <p>
-    @Html.ActionLink("Create New", "CreateOriginalProduct")
+    @Html.ActionLink("Create New", "CreateOriginalProduct", null, new { @class = "btn btn-primary", @style = "width:200px" })
 </p>
 
 <table class="table">
     <tr>
+        <th>
+            #
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -23,9 +46,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        
+
         <th>
-            @Html.DisplayNameFor(model => model.ImagePath)
+            Image
         </th>
         <th>
             @Html.DisplayNameFor(model => model.statusS)
@@ -36,10 +59,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Price)
+          <span>$</span>  @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
@@ -54,9 +80,9 @@
             @Html.DisplayFor(modelItem => item.statusS)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-info", @style = "font-size: 10px" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-info", @style = "font-size: 10px" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-info", @style = "font-size: 10px" })
         </td>
     </tr>
 }

@@ -214,6 +214,10 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Cart.cshtml" />
     <Content Include="Views\Cart\Order.cshtml" />
+    <Content Include="Views\Cart\OrderSuccess.cshtml" />
+    <Content Include="Views\Cart\OrderFailed.cshtml" />
+    <Content Include="Views\Inventory\Orders.cshtml" />
+    <Content Include="Views\Inventory\OpenOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

@@ -19,6 +19,7 @@ namespace ASPProject.Models
         public string Title { get; set; }
         public Nullable<double> Price { get; set; }
         public string Description { get; set; }
+        [DisplayName("Status")]
         public Nullable<int> statut { get; set; }
         [DisplayName("Upload file")]
         public string ImagePath { get; set; }

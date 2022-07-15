@@ -16,12 +16,14 @@ namespace ASPProject.Models
 
         public int? Quantity { get; set; }
 
-        public DateTime DateCreated { get; set; }
-
+        public DateTime? DateCreated { get; set; }
+        public int? Status { get; set; }
         public int? ProductId { get; set; }
+        public Nullable<double> UnitPrice { get; set; }
 
         public virtual DERIVE_PRODUCT Product { get; set; }
 
+        //public List<DERIVE_PRODUCT> ProductList { get; set; }
         public DERIVE_PRODUCT SetProduct (int? id) 
         {
            return Product = _db.DERIVE_PRODUCT.FirstOrDefault(x => x.Id == id);

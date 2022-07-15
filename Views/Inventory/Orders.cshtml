@@ -1,0 +1,92 @@
+﻿@model IEnumerable<ASPProject.ORDERS>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="margin:20px; margin-left:150px">
+    <div class="row ">
+        <div class="col-lg-3 ">
+            @Html.ActionLink("ORIGINAL PRODUCT", "Index", null, new { @class = "btn btn-primary", @style = "width:200px" })
+
+        </div>
+        <div class="col-lg-3">
+            @Html.ActionLink("DERIVE PRODUCT", "DeriveIndex", null, new { @class = "btn btn-primary", @style = "width:200px" })
+
+        </div>
+        <div class="col-lg-3">
+            @Html.ActionLink("ORDERS", "Orders", null, new { @class = "btn btn-primary", @style = "width:200px" })
+
+        </div>
+
+    </div>
+</div>
+<br />
+<strong><hr /></strong>
+<h1 style="text-align:center ; color :dodgerblue" class="modal-title ">ORDERS</h1>
+<strong><hr /></strong>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            <strong>#</strong>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CartId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th></th>
+    </tr>
+    @{
+        var i = 1;
+    }
+    @foreach (var item in Model)
+    {
+        <tr style="">
+            <td>
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CartId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.ActionLink("OPEN", "OpenOrder", new { id = item.Id }, new { @class = "btn btn-info", @style = "font-size: 10px" })
+
+            </td>
+        </tr>
+        i++;
+    }
+
+</table>
+

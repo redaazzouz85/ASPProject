@@ -35,6 +35,110 @@ namespace ASPProject.Controllers
                 ormList.Add(orm);
             }
             return View(ormList);
+        } 
+        
+        /** Orders **/
+        public ActionResult Orders()
+        {
+            var Orders = from x in dc.ORDERS where x.Status == 1 select x ;
+            //OriginalProductModel orm = new OriginalProductModel();
+            IList<ORDERS> orderList = new List<ORDERS>();
+
+
+            foreach(var item in Orders)
+            {
+             
+                
+            }
+            return View(Orders);
+        }
+        
+        public ActionResult OpenOrder(string id)
+        {
+            var Order = dc.ORDERS.FirstOrDefault(x=>x.Id == id) ;
+
+            
+            IList<CartItem> itemList = new List<CartItem>();
+            IList<DeriveProductModel> productList = new List<DeriveProductModel>();
+
+          //  var Cart = dc.CART_ITEM.Select(x => x.CartId == Order.CartId);
+            var CartItems = from x in dc.CART_ITEM where x.CartId == Order.CartId select x;
+            
+            double total =0;
+
+            CartOrder SelectedCartOrder = new CartOrder()
+            {
+                Id = id,
+                FullName = Order.FullName,
+                Address = Order.Address,
+                PhoneNumber = Order.Phone,
+                Email = Order.Email,
+                DateOrder = Order.Date
+                
+               
+               
+
+
+
+            };
+
+            // filling list of cartitem and product
+            foreach (var item in CartItems)
+            {
+               
+                
+
+                var product = dc.DERIVE_PRODUCT.FirstOrDefault(x => x.Id == item.ProductId);
+
+                DeriveProductModel DeriveProduct = new DeriveProductModel()
+                {
+                    Id = product.Id,
+                    Product_Type = product.Product_Type,
+                    Original_Product = product.Original_Product,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Quantity = product.Quantity,
+                    Image = product.Image
+                };
+                CartItem cARTITEM = new CartItem()
+                {
+                    CartId = item.CartId,
+                    ItemId = item.Id,
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    DateCreated = item.DateCreated,
+                    UnitPrice = DeriveProduct.Price,
+                    Product = product
+                };
+
+                total += Convert.ToDouble( cARTITEM.UnitPrice * cARTITEM.Quantity);
+                
+                itemList.Add(cARTITEM);
+                productList.Add(DeriveProduct);
+
+            }
+           
+
+            SelectedCartOrder.CartItemList= itemList;
+            SelectedCartOrder.ProductList= productList;
+            SelectedCartOrder.Total = total;
+
+            return View(SelectedCartOrder);
+        }
+        [HttpPost]
+        public ActionResult Fulfill(string id)
+        {
+            try{
+                dc.ORDERS.FirstOrDefault(x => x.Id == id).Status = 0;
+                dc.SubmitChanges();
+                return RedirectToAction("Orders");
+            }catch(Exception err)
+            {
+                return View(err.Message);
+            }
+            
+
+            
         }
         public ActionResult DeriveIndex()
         {
@@ -331,7 +435,7 @@ namespace ASPProject.Controllers
                 if (checkDerivedProduct.Any()) {
                     ViewBag.Message = "This product have Derived product, it can't be deleted!";
                     //  System.Console.WriteLine("This product have Derived product, it can't be deleted!");
-                    return View();
+                    return View(CurrentOriginalProduct);
                 }
                 else
                 {
@@ -344,9 +448,9 @@ namespace ASPProject.Controllers
                 
 
             }
-            catch
+            catch(Exception err)
             {
-                return View();
+                return View(err.Message);
             }
         }
 

@@ -22,7 +22,7 @@ namespace ASPProject.Models
 
             var cartItem = _db.CART_ITEM.SingleOrDefault(
                 c => c.CartId == ShoppingCartId
-                && c.ProductId == id);
+                && c.ProductId == id && c.Status ==1);
             
 
             if (cartItem == null)
@@ -40,7 +40,8 @@ namespace ASPProject.Models
                         CartId = ShoppingCartId,
 
                         Quantity = 1,
-                        DateCreated = DateTime.Now
+                        DateCreated = DateTime.Now,
+                        Status=1
                     };
 
                     _db.CART_ITEM.InsertOnSubmit(newcartItem);
@@ -91,7 +92,7 @@ namespace ASPProject.Models
         {
             ShoppingCartId = GetCartId();
             var cartitem = _db.CART_ITEM.Where(
-                c => c.CartId == ShoppingCartId);
+                c => c.CartId == ShoppingCartId && c.Status == 1);
             foreach(var item in cartitem)
             {
                 
@@ -103,7 +104,7 @@ namespace ASPProject.Models
                     Quantity = item.Quantity,
                     DateCreated = System.Convert.ToDateTime(item.DateCreated),
                     ProductId = item.ProductId,
-                    
+                    Status = item.Status
                     
                 };
                 CurrentCartItem.SetProduct(item.ProductId);

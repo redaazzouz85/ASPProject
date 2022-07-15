@@ -34,7 +34,14 @@
         <dd>
             @Html.DisplayFor(model => model.statut)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
 
+
+        <dd>
+            <img src="@Url.Content(Model.Image)" width="400" height="400" asp-append-version="true" />
+        </dd>
     </dl>
 
     @using (Html.BeginForm()) {
