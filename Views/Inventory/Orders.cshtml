@@ -28,10 +28,30 @@
 <strong><hr /></strong>
 <br />
 
+<div style="align-content:flex-end">
+   
+    @using (Html.BeginForm("Orders", "Inventory", FormMethod.Post))
+    {
+        <select name="selectedOption" id="DeriveCollection-select" onchange="this.form.submit()">
+
+            <option value="">--Please choose an option--</option>
+            <option value="0">All</option>
+            <option value="1">Waiting</option>
+            <option value="2">Fulffiled</option>
+
+
+        </select>
+    }
+    <hr />
+</div>
+
 <table class="table">
     <tr>
         <th>
             <strong>#</strong>
+        </th>
+        <th>
+            <strong>Status</strong>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
@@ -58,10 +78,28 @@
     }
     @foreach (var item in Model)
     {
-        <tr style="">
-            <td>
-                @i
-            </td>
+<tr style="">
+    <td>
+        @i
+    </td>
+
+    @{
+        if (item.Status == 0)
+        {
+        <td>
+            <img class="card-img-top" id="greenChack" src="~/Images/greenFlag.png" width="20" height="20" asp-append-version="true" alt="Card image cap">
+        </td>
+                }
+                else
+                {
+<td>
+    <img class="card-img-top" id="redCheck" src="~/Images/redFlag.png" width="25" height="25" asp-append-version="true" alt="Card image cap">
+
+</td>
+
+                }
+                }
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>

@@ -4,11 +4,13 @@
     ViewBag.Title = "Details_Derive";
 }
 
-<h2>Details_Derive</h2>
-
+<br />
+<strong><hr /></strong>
+<h1 style="text-align:center ; color :dodgerblue" class="modal-title ">DERIVE PRODUCT DETAILS</h1>
+<strong><hr /></strong>
+<br />
 <div>
-    <h4>DERIVE_PRODUCT</h4>
-    <hr />
+    
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Product_Type)
@@ -54,7 +56,7 @@
             @Html.DisplayNameFor(model => model.Image)
         </dt>
 
-        
+
         <dd>
             <img src="@Url.Content(Model.Image)" width="300" height="300" asp-append-version="true" />
         </dd>
@@ -62,6 +64,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "DeriveIndex")
+    @Html.ActionLink("Edit", "Edit_Derive", new { id = Model.Id }, new { @class = "row btn btn-primary", @style = "width:200px; margin-top:25px; font-size: 18px" })
+    @Html.ActionLink("Back to List", "DeriveIndex", null, new { @class = "btn btn-primary", @style = "width:200px; margin-top:25px; font-size: 18px" })
 </p>

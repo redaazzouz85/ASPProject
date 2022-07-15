@@ -208,7 +208,6 @@
     <Content Include="Views\Inventory\Edit_Derive.cshtml" />
     <Content Include="Views\Inventory\Details_Derive.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\DeriveIndex.cshtml" />
     <Content Include="Views\Inventory\Delete_Derive.cshtml" />
     <Content Include="Views\User\DeriveProduct_Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />

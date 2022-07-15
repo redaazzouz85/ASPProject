@@ -4,8 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index User</h2>
-
+<br />
+<strong><hr /></strong>
+<h1 style="text-align:center ; color :dodgerblue" class="modal-title ">ORIGINAL ART</h1>
+<strong><hr /></strong>
+<br />
 <div class="container container-fluid" style="margin-top:10rem">
     @foreach (var item in Model)
     {
@@ -14,7 +17,7 @@
         <div class="col-sm-4 d-flex pb-3">
             <div class="card card-block" style="width: 32rem; text-align:center ; padding-bottom:6rem">
                 <div id="container">
-                    <img class="card-img-top" id="img1" src="@Url.Content(item.ImagePath)" width="320" height="430"  asp-append-version="true" alt="Card image cap">
+                    <img class="card-img-top" id="img1" src="@Url.Content(item.ImagePath)" width="320" height="430" asp-append-version="true" alt="Card image cap">
                     @{
                         if (item.statusS == "Sold")
                         {
@@ -24,8 +27,8 @@
                     }
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">@item.Title</h5>
-                    <p class="card-text">@item.Description</p>
+                    <h5 class="card-title"><strong>@item.Title</strong> </h5>
+                    <p class="bg-info">@item.Description</p>
                 </div>
                 <ul class="list-group list-group-flush ">
                     <li class="list-group-item ">@item.statusS</li>
@@ -34,10 +37,10 @@
                 </ul>
                 <div class="card-body">
 
-                    <button type="button" class="btn btn-block" onclick="location.href='@Url.Action("DeriveIndex", "User", new { originalProduct = @item.Title })'">Derived Product</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("DeriveProduct_Index", "User", new { originalProduct = @item.Title })'">Derived Product</button>
 
 
-                    <a href="#" class="card-link">Add to cart</a>
+                    <a href="#" class="btn btn-info" >Contact</a>
                 </div>
             </div>
         </div>

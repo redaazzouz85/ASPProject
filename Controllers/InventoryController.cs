@@ -45,14 +45,35 @@ namespace ASPProject.Controllers
             IList<ORDERS> orderList = new List<ORDERS>();
 
 
-            foreach(var item in Orders)
-            {
-             
-                
-            }
             return View(Orders);
         }
-        
+        [HttpPost]
+        public ActionResult Orders(int selectedOption)
+        {
+            var WaitingOrders = from x in dc.ORDERS where x.Status == 1 select x;
+            var FulfilledOrders = from x in dc.ORDERS where x.Status == 0 select x;
+            var AllOrders = from x in dc.ORDERS select x;
+            if (selectedOption == 0)
+            {
+                return View(AllOrders);
+            }
+            else if (selectedOption == 1)
+            {
+                return View(WaitingOrders);
+            }
+            else if (selectedOption == 2)
+            {
+                return View(FulfilledOrders);
+
+            }
+            else
+            {
+                return View();
+            }
+
+
+
+        }
         public ActionResult OpenOrder(string id)
         {
             var Order = dc.ORDERS.FirstOrDefault(x=>x.Id == id) ;
@@ -74,11 +95,6 @@ namespace ASPProject.Controllers
                 PhoneNumber = Order.Phone,
                 Email = Order.Email,
                 DateOrder = Order.Date
-                
-               
-               
-
-
 
             };
 
@@ -140,6 +156,8 @@ namespace ASPProject.Controllers
 
             
         }
+        
+       
         public ActionResult DeriveIndex()
         {
             var Derive_Product = from x in dc.DERIVE_PRODUCT select x;
@@ -388,7 +406,11 @@ namespace ASPProject.Controllers
               //  UpdateProduct.Title = collection.Title;
                 UpdateProduct.Price = collection.Price;
                 UpdateProduct.Description = collection.Description;
-                UpdateProduct.statut = Convert.ToInt32(SelectedStatus);
+                if(SelectedStatus != "")
+                {
+                    UpdateProduct.statut = Convert.ToInt32(SelectedStatus);
+                }
+               
 
                 if (collection.ImageFile != null)
                 {

@@ -4,16 +4,17 @@
     ViewBag.Title = "CreateDeriveProduct_TypeSelection";
 }
 
-<h2>CreateDeriveProduct_TypeSelection</h2>
 
+<strong><hr /></strong>
+<h1 style="text-align:center ; color :dodgerblue" class="modal-title ">TYPE SELECTION | ORIGINAL PRODUCT CREATION</h1>
+<strong><hr /></strong>
+<br />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>PRODUCT_TYPE</h4>
-
-        <hr />
+     
         <select name="SelectedProductType" id="ProductType-select">
 
             <option value="">--Please choose an option--</option>
@@ -24,14 +25,14 @@
         </select>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Next" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary", @style = "width:200px; margin-top:25px; font-size: 18px" })
 </div>
 
 @section Scripts {

@@ -31,21 +31,23 @@ namespace ASPProject.Controllers
             return View(ormList);
 
         }
-        public ActionResult DeriveIndex(string originalProduct)
+      /*  public ActionResult DeriveIndex(string originalProduct)
         {
             var Derive_Product = from x in dc.DERIVE_PRODUCT where x.Original_Product.Trim() == originalProduct.Trim() select x;
             return View(Derive_Product);
-        }
-        public ActionResult DeriveProduct_Index()
+        }*/
+        public ActionResult DeriveProduct_Index(string originalProduct,Nullable< int> id)
         {
-            var Derive_Product = from x in dc.DERIVE_PRODUCT select x;
-            
             IList<DeriveProductModel> dpmList = new List<DeriveProductModel>();
+
+            var Derive_Product = from x in dc.DERIVE_PRODUCT select x;
+
+
 
             // Get Product types without duplication
             // 
-            List<string> Types = new List<string>() ;
-            List<string> Origins = new List<string>() ;
+            List<string> Types = new List<string>();
+            List<string> Origins = new List<string>();
             foreach (var x in Derive_Product)
             {
                 Types.Add(x.Product_Type);
@@ -56,24 +58,50 @@ namespace ASPProject.Controllers
 
             ViewBag.noDuplicate_typeList = noDuplicate_typeList;
             ViewBag.noDuplicate_originList = noDuplicate_originList;
-
-            foreach (var item in Derive_Product)
+            if (originalProduct == null)
             {
-                DeriveProductModel dpm = new DeriveProductModel();
-                dpm.Id = item.Id;
-                dpm.Name = item.Name;
-                dpm.Product_Type = item.Product_Type;
-                dpm.Original_Product = item.Original_Product;
-                dpm.Price= item.Price;
-                dpm.Quantity = item.Quantity;
-                dpm.Image = item.Image;
-                
-               // dpm.noDuplicate_typeList = Types.Distinct();
+               
 
-                dpmList.Add(dpm);
+                foreach (var item in Derive_Product)
+                {
+                    DeriveProductModel dpm = new DeriveProductModel();
+                    dpm.Id = item.Id;
+                    dpm.Name = item.Name;
+                    dpm.Product_Type = item.Product_Type;
+                    dpm.Original_Product = item.Original_Product;
+                    dpm.Price = item.Price;
+                    dpm.Quantity = item.Quantity;
+                    dpm.Image = item.Image;
+
+                    // dpm.noDuplicate_typeList = Types.Distinct();
+
+                    dpmList.Add(dpm);
+                }
+                return View(dpmList);
             }
-            return View(dpmList);
-            
+            else
+            {
+                var Derive_Product_originalSelected = from x in dc.DERIVE_PRODUCT where x.Original_Product.Trim() == originalProduct.Trim() select x;
+
+                foreach (var item in Derive_Product_originalSelected)
+                {
+                    DeriveProductModel dpm = new DeriveProductModel();
+                    dpm.Id = item.Id;
+                    dpm.Name = item.Name;
+                    dpm.Product_Type = item.Product_Type;
+                    dpm.Original_Product = item.Original_Product;
+                    dpm.Price = item.Price;
+                    dpm.Quantity = item.Quantity;
+                    dpm.Image = item.Image;
+
+                    // dpm.noDuplicate_typeList = Types.Distinct();
+
+                    dpmList.Add(dpm);
+                }
+                return View(dpmList);
+            }
+
+
         }
         [HttpPost]
         
